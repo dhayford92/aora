@@ -7,6 +7,7 @@ import { Link, router } from 'expo-router'
 import CustomButton from '../../components/CustomButton'
 import { getCurrentUser, signIn } from '../../lib/appwrite'
 import { useGlobalContext } from '../../context/GlobalProvider'
+import { toast } from '../../lib/toaster'
 
 const SignIn = () => {
   const { setUser, setIsLogged } = useGlobalContext();
@@ -17,7 +18,7 @@ const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false)
 
   const handleSignIn = async () => {
-    if (form.email === "" || form.password === "") {
+    if (!form.email || !form.password) {
       Alert.alert("Error", "Please fill in all fields");
       return;
     }
@@ -30,7 +31,7 @@ const SignIn = () => {
       setUser(result);
       setIsLogged(true);
 
-      Alert.alert("Success", "User signed in successfully");
+      toast("User signed in successfully");
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
