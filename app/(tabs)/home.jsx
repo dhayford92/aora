@@ -14,6 +14,7 @@ import VideoCard from '../../components/VideoCard';
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latest } = useAppwrite(getLatestPosts);
+  const {user} = useGlobalContext();
 
   const [ refreshing, setRefreshing ] = React.useState(false);
 
@@ -43,7 +44,7 @@ const Home = () => {
             <View className="justify-between items-start flex-row mb-6">
               <View>
                 <Text className="text-sm font-pmedium text-gray-100">Welcome Back,</Text>
-                <Text className="text-2xl font-psemibold text-white">Denzel</Text>
+                <Text className="text-2xl font-psemibold text-white">{user?.username}</Text>
               </View>
               <View className="mt-1.5">
                 <Image
